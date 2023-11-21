@@ -28,10 +28,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'account',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
+    'account',
+    'food_item',
 ]
 
 MIDDLEWARE = [
@@ -70,9 +71,13 @@ WSGI_APPLICATION = 'food_delivery_server.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config('DB'),
+        "USER": config('USER_NAME'),
+        "PASSWORD": config('PASSWORD'),
+        "HOST": "localhost",
+        "PORT": "",
     }
 }
 
