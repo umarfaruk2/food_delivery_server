@@ -10,7 +10,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['name', 'email', 'tc', 'password', 'password2']
+        fields = ['name', 'email', 'password', 'password2']
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -81,7 +81,7 @@ class UserPasswordResetEmailSerializer(serializers.Serializer):
 
             link = 'http://localhost:300/api/user/reset/'+uid+'/'+token
             # Email send
-            body = 'Click following link to reset your password' + link
+            body = 'Click following link to reset your password' + " " + link
             data = {
                 'subject': "Rest your password",
                 'body': body,
