@@ -32,8 +32,10 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'django_filters',
     'corsheaders',
+
     'account',
     'food_item',
+    'food_cart',
 ]
 
 MIDDLEWARE = [
