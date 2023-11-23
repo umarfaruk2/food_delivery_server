@@ -31,6 +31,23 @@ class ReviewRatingView(APIView):
                 return Response({'msg': 'Submit your review and rating'}, status = status.HTTP_201_CREATED)
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
+    def patch(self, request, pk, format = None):
+       review_rating_model = FoodReviewRatingModel.objects.get(pk = pk) 
+
+       serializer = FoodReviewRatingSerializer(review_rating_model, data = request.data)
+       if serializer.is_valid(raise_exception=True):
+           serializer.save()
+
+           return Response({'msg': 'Your review and rating updated successfully'}, status = status.HTTP_200_OK)  
+       return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format = None):
+       review_rating_model = FoodReviewRatingModel.objects.get(pk = pk) 
+       review_rating_model.delete()
+
+       return Response({'msg': 'Your review rating has been delete successfully'}, status = status.HTTP_406_NOT_ACCEPTABLE)
+       
+        
     
 
 class AllReviewRatingView(APIView):
