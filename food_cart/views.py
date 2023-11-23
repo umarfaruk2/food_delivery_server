@@ -10,16 +10,20 @@ from rest_framework.permissions import IsAuthenticated
 class CreateFoodCartView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self,request, pk, format = None):
-        food_item = FoodModel.objects.get(pk = pk) 
-        serializer = FoodCartSerializer(data = request.data)
+        try:
+            food_item = FoodModel.objects.get(pk = pk) 
+            serializer = FoodCartSerializer(data = request.data)
 
-        if serializer.is_valid(raise_exception=True):
-            serializer.validated_data['user'] = request.user
-            serializer.validated_data['food_item'] = food_item
-            serializer.save()
+            if serializer.is_valid(raise_exception=True):
+                serializer.validated_data['user'] = request.user
+                serializer.validated_data['food_item'] = food_item
+                serializer.save()
 
-            return Response({'msg': 'Add to cart successfully'}, status = status.HTTP_201_CREATED)
-        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+                return Response({'msg': 'Add to cart successfully'}, status = status.HTTP_201_CREATED)
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response({'msg': 'Item already have in cart or something want wrong'}, status = status.HTTP_406_NOT_ACCEPTABLE)
+            
 
 class FoodCartView(APIView):
     permission_classes = [IsAuthenticated]
