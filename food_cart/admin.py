@@ -3,4 +3,4 @@ from .models import FoodCartModel
 
 @admin.register(FoodCartModel)
 class FoodCartAdmin(admin.ModelAdmin):
-    list_display = ('id', 'quantity', 'total_price')
+    list_display = ('id', 'quantity', 'total_price', 'user', 'food_item')

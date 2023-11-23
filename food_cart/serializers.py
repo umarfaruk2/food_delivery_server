@@ -3,4 +3,6 @@ from .models import FoodCartModel
 
 
 class FoodCartSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = FoodCartModel
+        fields = ['id', 'total_price', 'quantity']
