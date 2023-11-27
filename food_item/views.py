@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
+from django.db import IntegrityError
 
 class FoodItemView(APIView):
     permission_classes = [IsAuthenticated]
@@ -20,12 +21,13 @@ class FoodItemView(APIView):
             
     def post(self, request, format = None):
         serializer = FoodModelSerializer(data = request.data)
-
-        if serializer.is_valid(raise_exception=True):
+        try:
+            serializer.is_valid(raise_exception=True)
             serializer.validated_data['user'] = request.user
             serializer.save()
-            return Response({'msg': 'Create new dish successfully'}, status = status.HTTP_201_CREATED)
-        return Response(serializer.error, status = status.HTTP_400_BAD_REQUEST)
+            return Response({'msg': 'Create new dish successfully'}, status=status.HTTP_201_CREATED)
+        except IntegrityError as e:
+            return Response({'errors': 'Dish with this restaurant_name already exists'}, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request, pk, format = None):
         food = self.get_object(pk)

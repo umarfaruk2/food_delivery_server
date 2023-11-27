@@ -161,6 +161,7 @@ PASSWORD_RESET_TIMEOUT = 900
 # cors config ============================================
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://localhost:5173"
 ]
 
 # Email config

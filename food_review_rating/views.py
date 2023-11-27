@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 
 class ReviewRatingView(APIView):
     # add auth permission
+    permission_classes = [IsAuthenticated]
     # This pk i got from which dish i order of that
     def get_order(self, pk):
         try:
@@ -47,8 +48,6 @@ class ReviewRatingView(APIView):
 
        return Response({'msg': 'Your review rating has been delete successfully'}, status = status.HTTP_406_NOT_ACCEPTABLE)
        
-        
-    
 
 class AllReviewRatingView(APIView):
     def get(self, request, pk, format = None):

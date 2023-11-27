@@ -50,6 +50,7 @@ class UserLoginView(APIView):
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
+
 # Only authenticate user can get this data with access token
 class UserProfileView(APIView):
   renderer_classes = [UserRenderer]
